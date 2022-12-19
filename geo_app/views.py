@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .forms import UploadDetailsForm
-from .models import Details, Coordinates
+from .models import Details, Coordinates, CountAnn
 from datetime import datetime
 
 
@@ -22,6 +22,11 @@ def get_time_range(objs):
 def home(request):
 
     """Main Driver Function for User data visualization and filtering with necessary information."""
+    if not request.user.is_authenticated:
+        cnt = CountAnn.objects.get(id=1)
+        cnt.count += 1
+        cnt.save()
+
 
     details = []
     category = {}

@@ -50,3 +50,8 @@ class Issue(models.Model):
         return f' Issue of {self.details.project_name}'
 
 
+class CountAnn(models.Model):
+    count = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f'User visited { self.count}'
