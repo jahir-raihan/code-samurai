@@ -60,15 +60,15 @@ $(document).on('submit', '#get-project-details', function(e){
             document.getElementById('detail-box').classList.remove('d-none')
             document.getElementById('d-f-c-txt').classList.add('d-none')
             var p = data.project
-            $('#project-name').html(p[0]); $('#category-data').html(p[1]); $('#affiliated-agency').html(p[2]);
-            $('#description').html(p[3]); $('#start-time').html(p[4]); $('#completion-time').html(p[5]);
-            $('#total-budget').html(p[6]); $('#completion-percentage').html(p[7]);
-            $('#time-remaining-percentage').html(data.pct_time)
+            $('#project-name').html(p[0]); $('#affiliated-agency').html(p[1]);
+            $('#description').html(p[2]); $('#start-time').html(p[3]); $('#completion-time').html(p[4]);
+            $('#total-budget').html(p[5]); $('#completion-percentage').html(p[6]);
+            $('#time-remaining-percentage').html(p[8])
             $('#section-map').html('<div id="empty"></div>');
             document.getElementById('issue-hidden-val').setAttribute('value', p[0])
-            document.getElementById('issue-hidden-id').setAttribute('value', p[8])
+            document.getElementById('issue-hidden-id').setAttribute('value', p[7])
+            $('#b-csrf').before(`<input type="hidden" name="csrfmiddlewaretoken" value='${data.csrf}'> `)
 
-            console.log(data.coordinates)
             var cor = data.coordinates
             i = 1
             for (c of cor){
@@ -92,6 +92,13 @@ $(document).on('submit', '#get-project-details', function(e){
 
 
 });
+
+function rate(val){
+
+    document.getElementById('rating').setAttribute('value', val)
+}
+
+
 
 
 // Admin page Ajax , For Admin's to filter and sort by project names or Issue counts on them.
@@ -185,11 +192,57 @@ $(document).on('submit', '#issue-form', function(e){
         data:{
             csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
             issue : $('#id_issue').val(),
-            id: $('#issue-hidden-id').val()
+            id: $('#issue-hidden-id').val(),
+            rate: $('#rating').val(),
         }
     })
     req.done(function(data){
-        $('#overlay-form').html('<div class="cross" onclick="off()">X</div><p style="text-align:center;"> Committed Issue Successfully.</p>')
+        $('#overlay-form').html('<div class="cross" onclick="off()">X</div><p style="text-align:center;"> Committed Feedback Successfully.</p>')
     })
 
 })
+
+// proposal acceptance
+
+$(document).on('submit', '#accept-prop', function(e){
+    e.preventDefault();
+    let req = $.ajax({
+        type:'post',
+        url:'/m-o-p/',
+        data:{
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            id: $('#prop_id').val(),
+            approval:'accept',
+            date:$('#date').val()
+        }
+
+    })
+    req.done(function(data){
+        $(`#proposal-list${data.id}`).html(data.template)
+
+
+    })
+
+})
+
+$(document).on('submit', '#dec-prop', function(e){
+    e.preventDefault();
+    let req = $.ajax({
+        type:'post',
+        url:'/m-o-p/',
+        data:{
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            id: $('#prop_id').val(),
+            approval:'decline'
+        }
+
+    })
+    req.done(function(data){
+        $(`#proposal-list${data.id}`).html(data.template)
+
+
+    })
+
+})
+
+

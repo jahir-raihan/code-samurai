@@ -57,14 +57,20 @@
 
                       <li>
                          <a href="{% url 'admin-page' %}">
-
-                             <a href="{% url 'admin-page' %}">Admin User</a>
+                            <img src="{% static 'images/add_user.png' %}" alt="upload Icon">
+                             <a href="{% url 'register_other_users' %}">Create New User</a>
                          </a>
                      </li>
                     <li>
                          <a href="{% url 'upload-details' %}">
                              <img src="{% static 'images/upload.png' %}" alt="upload Icon">
                             <a href="{% url 'upload-details' %}">Upload File <span style="color:red">(x)</span></a>
+                         </a>
+                     </li>
+                    <li>
+                         <a href="{% url 'logout' %}">
+                             <img src="{% static 'images/logout.png' %}" alt="Admin Icon">
+                             <a href="{% url 'logout' %}">Logout</a>
                          </a>
                      </li>
 

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'geo_app'
+    'geo_app',
+    'user'
+
 ]
 
 MIDDLEWARE = [
@@ -51,7 +53,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'geo_geo.urls'
-import os
+
+AUTH_USER_MODEL = 'user.User'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -72,7 +75,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'geo_geo.wsgi.application'
 
-
+LOGIN_URL = '/user/login/'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 

@@ -1,5 +1,5 @@
 from django import forms
-from .models import UploadDetails
+from .models import UploadFile
 
 
 class UploadDetailsForm(forms.ModelForm):
@@ -7,5 +7,5 @@ class UploadDetailsForm(forms.ModelForm):
     """This form is for uploading details file """
 
     class Meta:
-        model = UploadDetails
-        fields = ['file']
+        model = UploadFile
+        fields = ['file_type', 'file']
