@@ -1,5 +1,5 @@
 
-// function to toggle dashboard icon
+// function to toggle dashboard ico
 
 function show_dash_options(){
     let ele = document.getElementById('dashboard-toggle');
