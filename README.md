@@ -1,2 +1,2 @@
-# code-samurai - Lost Already lost
-Project for code samurai Hackathon
+# code-samurai
+Final project files of code samurai 2022
